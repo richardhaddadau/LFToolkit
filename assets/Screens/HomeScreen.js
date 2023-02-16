@@ -13,14 +13,32 @@ const HomeScreen = () => {
     {
       projectTitle: "Project #1",
       progress: 85,
+      theme: "#f8c820",
     },
     {
       projectTitle: "Project #2",
       progress: 35,
+      theme: "#c6005f",
     },
     {
       projectTitle: "Project #4",
       progress: 22,
+      theme: "#4792ed",
+    },
+    {
+      projectTitle: "Project #4",
+      progress: 22,
+      theme: "#4792ed",
+    },
+    {
+      projectTitle: "Project #4",
+      progress: 22,
+      theme: "#4792ed",
+    },
+    {
+      projectTitle: "Project #4",
+      progress: 22,
+      theme: "#4792ed",
     },
   ];
 
@@ -30,7 +48,7 @@ const HomeScreen = () => {
         data={TestData}
         numColumns={2}
         columnWrapperStyle={{
-          top: -40,
+          top: "-15%",
           paddingHorizontal: "10%",
           justifyContent: "space-between",
         }}
@@ -44,12 +62,24 @@ const HomeScreen = () => {
           </View>
         }
         renderItem={({ item }) => {
+          let progressStr = item.progress + "%";
+
           return (
             <View style={styles.card}>
               <View style={styles.cardIcon}></View>
               <Text style={styles.title}>{item.projectTitle}</Text>
-              <Text style={styles.progress}>{item.progress}%</Text>
-              <View></View>
+              <Text style={styles.subtitle}>{item.progress}%</Text>
+              <View style={styles.progressWrapper}>
+                <View
+                  style={[
+                    styles.progressBar,
+                    {
+                      width: progressStr,
+                      backgroundColor: item.theme,
+                    },
+                  ]}
+                ></View>
+              </View>
             </View>
           );
         }}
@@ -66,6 +96,7 @@ const styles = StyleSheet.create({
   },
   header: {
     aspectRatio: 1,
+    overflow: "hidden",
   },
   headerImage: {
     height: "100%",
@@ -73,7 +104,7 @@ const styles = StyleSheet.create({
   },
   card: {
     padding: 10,
-    marginBottom: 30,
+    marginBottom: 20,
     width: "45%",
     alignItems: "center",
     borderRadius: 7,
@@ -97,10 +128,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
-  progress: {
+  subtitle: {
     opacity: 0.5,
     fontWeight: "thin",
     fontSize: 13,
+  },
+  progressWrapper: {
+    marginTop: 15,
+    width: "100%",
+    height: 5,
+    backgroundColor: "#e1e1e1",
+    overflow: "hidden",
+  },
+  progressBar: {
+    height: "100%",
   },
 });
 

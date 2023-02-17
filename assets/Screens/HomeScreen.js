@@ -58,7 +58,42 @@ const HomeScreen = () => {
               source={require("../Imgs/Header-Background.jpg")}
               resizeMode="cover"
               style={styles.headerImage}
-            />
+            >
+              <View style={styles.headerPanel}>
+                <Text style={styles.greeting}>Hi Edmodantes</Text>
+                <View style={styles.statPanel}>
+                  <Text
+                    style={{
+                      marginTop: 10,
+                      marginBottom: 5,
+                      fontSize: 14,
+                      color: "white",
+                    }}
+                  >
+                    Statistics:
+                  </Text>
+                  <View style={styles.statSingle}>
+                    <Text style={styles.statQuantity}>16,200</Text>
+                    <Text style={styles.statDescription}>Stone</Text>
+                  </View>
+
+                  <View style={styles.statSingle}>
+                    <Text style={styles.statQuantity}>16,200</Text>
+                    <Text style={styles.statDescription}>Stone</Text>
+                  </View>
+
+                  <View style={styles.statSingle}>
+                    <Text style={styles.statQuantity}>16,200</Text>
+                    <Text style={styles.statDescription}>Z Coins</Text>
+                  </View>
+
+                  <View style={styles.statSingle}>
+                    <Text style={styles.statQuantity}>16,200</Text>
+                    <Text style={styles.statDescription}>Stone</Text>
+                  </View>
+                </View>
+              </View>
+            </ImageBackground>
           </View>
         }
         renderItem={({ item }) => {
@@ -102,6 +137,36 @@ const styles = StyleSheet.create({
     height: "100%",
     bottom: 0,
   },
+  headerPanel: {
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    marginTop: 50,
+    width: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.65)",
+    zIndex: 10,
+    elevation: 2,
+  },
+  greeting: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "white",
+  },
+  statSingle: {
+    marginVertical: 5,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+  },
+  statQuantity: {
+    marginRight: 5,
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "white",
+  },
+  statDescription: {
+    fontSize: 14,
+    fontWeight: "light",
+    color: "white",
+  },
   card: {
     padding: 10,
     marginBottom: 20,
@@ -126,12 +191,12 @@ const styles = StyleSheet.create({
   title: {
     opacity: 0.5,
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 15,
   },
   subtitle: {
     opacity: 0.5,
     fontWeight: "thin",
-    fontSize: 13,
+    fontSize: 12,
   },
   progressWrapper: {
     marginTop: 15,

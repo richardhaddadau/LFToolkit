@@ -1,36 +1,43 @@
 import {
   FlatList,
-  Image,
   ImageBackground,
   StyleSheet,
   Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
+// import SingleStat from "../Components/SingleStat";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const TestData = [
     {
+      id: 1,
       projectTitle: "Project #1",
       progress: 85,
       theme: "#f8c820",
     },
     {
+      id: 2,
       projectTitle: "Project #2",
       progress: 35,
       theme: "#c6005f",
     },
     {
+      id: 3,
       projectTitle: "Project #4",
       progress: 22,
       theme: "#4792ed",
     },
     {
+      id: 4,
       projectTitle: "Project #4",
       progress: 22,
       theme: "#4792ed",
     },
     {
+      id: 5,
       projectTitle: "Project #4",
       progress: 22,
       theme: "#4792ed",
@@ -55,7 +62,7 @@ const HomeScreen = () => {
         ListHeaderComponent={
           <View style={styles.header}>
             <ImageBackground
-              source={require("../Imgs/Header-Background.jpg")}
+              source={require("../../assets/Imgs/Header-Background.jpg")}
               resizeMode="cover"
               style={styles.headerImage}
             >
@@ -64,33 +71,18 @@ const HomeScreen = () => {
                 <View style={styles.statPanel}>
                   <Text
                     style={{
-                      marginTop: 10,
+                      marginTop: 20,
                       marginBottom: 5,
-                      fontSize: 14,
+                      fontSize: 16,
                       color: "white",
                     }}
                   >
-                    Statistics:
+                    Current Statistics:
                   </Text>
-                  <View style={styles.statSingle}>
-                    <Text style={styles.statQuantity}>16,200</Text>
-                    <Text style={styles.statDescription}>Stone</Text>
-                  </View>
-
-                  <View style={styles.statSingle}>
-                    <Text style={styles.statQuantity}>16,200</Text>
-                    <Text style={styles.statDescription}>Stone</Text>
-                  </View>
-
-                  <View style={styles.statSingle}>
-                    <Text style={styles.statQuantity}>16,200</Text>
-                    <Text style={styles.statDescription}>Z Coins</Text>
-                  </View>
-
-                  <View style={styles.statSingle}>
-                    <Text style={styles.statQuantity}>16,200</Text>
-                    <Text style={styles.statDescription}>Stone</Text>
-                  </View>
+                  {/*<SingleStat data={12000} description={"Stone"} />*/}
+                  {/*<SingleStat data={87400} description={"Iron"} />*/}
+                  {/*<SingleStat data={21000} description={"Z coins"} />*/}
+                  {/*<SingleStat data={11100} description={"Diamonds"} />*/}
                 </View>
               </View>
             </ImageBackground>
@@ -100,22 +92,31 @@ const HomeScreen = () => {
           let progressStr = item.progress + "%";
 
           return (
-            <View style={styles.card}>
-              <View style={styles.cardIcon}></View>
-              <Text style={styles.title}>{item.projectTitle}</Text>
-              <Text style={styles.subtitle}>{item.progress}%</Text>
-              <View style={styles.progressWrapper}>
-                <View
-                  style={[
-                    styles.progressBar,
-                    {
-                      width: progressStr,
-                      backgroundColor: item.theme,
-                    },
-                  ]}
-                ></View>
+            <TouchableWithoutFeedback
+              key={item.id}
+              onPress={() =>
+                navigation.navigate("Project", {
+                  projectId: item.id,
+                })
+              }
+            >
+              <View style={styles.card}>
+                <View style={styles.cardIcon}></View>
+                <Text style={styles.title}>{item.projectTitle}</Text>
+                <Text style={styles.subtitle}>{item.progress}%</Text>
+                <View style={styles.progressWrapper}>
+                  <View
+                    style={[
+                      styles.progressBar,
+                      {
+                        width: progressStr,
+                        backgroundColor: item.theme,
+                      },
+                    ]}
+                  ></View>
+                </View>
               </View>
-            </View>
+            </TouchableWithoutFeedback>
           );
         }}
       />
@@ -134,37 +135,21 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   headerImage: {
+    justifyContent: "center",
     height: "100%",
     bottom: 0,
   },
   headerPanel: {
     paddingVertical: 15,
     paddingHorizontal: 20,
-    marginTop: 50,
     width: "100%",
     backgroundColor: "rgba(0, 0, 0, 0.65)",
     zIndex: 10,
     elevation: 2,
   },
   greeting: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: "bold",
-    color: "white",
-  },
-  statSingle: {
-    marginVertical: 5,
-    flexDirection: "row",
-    justifyContent: "flex-start",
-  },
-  statQuantity: {
-    marginRight: 5,
-    fontSize: 15,
-    fontWeight: "bold",
-    color: "white",
-  },
-  statDescription: {
-    fontSize: 14,
-    fontWeight: "light",
     color: "white",
   },
   card: {
@@ -175,7 +160,9 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     backgroundColor: "#fff",
     shadowColor: "#000",
-    shadowOffset: 5,
+    shadowOffset: 7,
+    shadowRadius: 6,
+    shadowOpacity: 1,
     elevation: 7,
     overflow: "hidden",
   },
@@ -186,6 +173,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 999,
     shadowColor: "#000",
+    // shadowOffset: 5,
+    shadowRadius: 4,
+    shadowOpacity: 0.25,
     elevation: 7,
   },
   title: {
@@ -201,8 +191,9 @@ const styles = StyleSheet.create({
   progressWrapper: {
     marginTop: 15,
     width: "100%",
-    height: 5,
+    height: 7,
     backgroundColor: "#e1e1e1",
+    borderRadius: 10,
     overflow: "hidden",
   },
   progressBar: {

@@ -1,27 +1,39 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Pressable, StatusBar } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
 // import { IoIosArrowBack } from "react-icons/all";
 
 const ProjectScreen = ({ route, navigation }) => {
-  const { projectId } = route.params;
+  const { projectItem } = route.params;
 
   return (
-    <View style={styles.screenWrap}>
+    <SafeAreaView style={styles.screenWrap}>
       <View style={styles.projectHeader}>
-        {/*<IoIosArrowBack size={12} />*/}
-        <Text>{projectId}</Text>
+        <Pressable onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back-sharp" size={24} color="black" />
+        </Pressable>
+        <Text style={styles.headerTitle}>{projectItem.projectTitle}</Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   screenWrap: {
     flex: 1,
-    backgroundColor: "red",
+    backgroundColor: "white",
   },
   projectHeader: {
-    justifyContent: "space-between",
-    backgroundColor: "blue",
+    paddingVertical: 20,
+    paddingHorizontal: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    backgroundColor: "white",
+  },
+  headerTitle: {
+    marginLeft: 30,
+    fontSize: 20,
   },
 });
 

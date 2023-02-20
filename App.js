@@ -7,21 +7,34 @@ import HomeScreen from "./src/Screens/HomeScreen";
 import ProjectScreen from "./src/Screens/ProjectScreen";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import BottomTabs from "./src/Navigation/BottomTabs";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import StatisticsScreen from "./src/Screens/StatisticsScreen";
 
 const Stack = createNativeStackNavigator();
 const Tabs = createMaterialBottomTabNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name={"Home"}
-          component={BottomTabs}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="Project" component={ProjectScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name={"Home"}
+            component={BottomTabs}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Project"
+            component={ProjectScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Statistics"
+            component={StatisticsScreen}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }

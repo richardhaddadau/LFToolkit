@@ -1,14 +1,19 @@
 import {
   FlatList,
   ImageBackground,
+  SafeAreaView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
-// import SingleStat from "../Components/SingleStat";
+import SingleStat from "../Components/SingleStat";
+import {
+  AntDesign,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 
 const HomeScreen = ({ navigation }) => {
   const TestData = [
@@ -26,7 +31,7 @@ const HomeScreen = ({ navigation }) => {
     },
     {
       id: 3,
-      projectTitle: "Project #4",
+      projectTitle: "Project #3",
       progress: 22,
       theme: "#4792ed",
     },
@@ -38,19 +43,19 @@ const HomeScreen = ({ navigation }) => {
     },
     {
       id: 5,
-      projectTitle: "Project #4",
+      projectTitle: "Project #5",
       progress: 22,
       theme: "#4792ed",
     },
     {
-      projectTitle: "Project #4",
+      projectTitle: "Project #6",
       progress: 22,
       theme: "#4792ed",
     },
   ];
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={TestData}
         numColumns={2}
@@ -60,7 +65,7 @@ const HomeScreen = ({ navigation }) => {
           justifyContent: "space-between",
         }}
         ListHeaderComponent={
-          <View style={styles.header}>
+          <SafeAreaView style={styles.header}>
             <ImageBackground
               source={require("../../assets/Imgs/Header-Background.jpg")}
               resizeMode="cover"
@@ -71,7 +76,7 @@ const HomeScreen = ({ navigation }) => {
                 <View style={styles.statPanel}>
                   <Text
                     style={{
-                      marginTop: 20,
+                      marginTop: 15,
                       marginBottom: 5,
                       fontSize: 16,
                       color: "white",
@@ -79,14 +84,36 @@ const HomeScreen = ({ navigation }) => {
                   >
                     Current Statistics:
                   </Text>
-                  {/*<SingleStat data={12000} description={"Stone"} />*/}
-                  {/*<SingleStat data={87400} description={"Iron"} />*/}
-                  {/*<SingleStat data={21000} description={"Z coins"} />*/}
-                  {/*<SingleStat data={11100} description={"Diamonds"} />*/}
+                  <SingleStat data={12000} description={"Stone"} />
+                  <SingleStat data={87400} description={"Iron"} />
+                  <SingleStat data={21000} description={"Z Coins"} />
+                  <SingleStat data={11100} description={"Diamonds"} />
                 </View>
+
+                <TouchableWithoutFeedback
+                  onPress={() => navigation.navigate("Statistics")}
+                >
+                  <View style={{ position: "absolute", right: 20, bottom: 15 }}>
+                    <MaterialCommunityIcons
+                      name="pencil-box"
+                      size={30}
+                      color="white"
+                    />
+                  </View>
+                </TouchableWithoutFeedback>
+              </View>
+
+              <View
+                style={{
+                  marginTop: 10,
+                  paddingRight: 20,
+                  alignItems: "flex-end",
+                }}
+              >
+                <AntDesign name="plussquare" size={30} color="white" />
               </View>
             </ImageBackground>
-          </View>
+          </SafeAreaView>
         }
         renderItem={({ item }) => {
           let progressStr = item.progress + "%";
@@ -96,7 +123,7 @@ const HomeScreen = ({ navigation }) => {
               key={item.id}
               onPress={() =>
                 navigation.navigate("Project", {
-                  projectId: item.id,
+                  projectItem: item,
                 })
               }
             >
@@ -122,7 +149,7 @@ const HomeScreen = ({ navigation }) => {
       />
 
       <StatusBar style="auto" />
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -135,11 +162,11 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   headerImage: {
-    justifyContent: "center",
     height: "100%",
     bottom: 0,
   },
   headerPanel: {
+    marginTop: "10%",
     paddingVertical: 15,
     paddingHorizontal: 20,
     width: "100%",

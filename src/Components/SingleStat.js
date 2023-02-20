@@ -1,38 +1,44 @@
 import { Text, View, StyleSheet } from "react-native";
-import { GiStoneBlock, GiTwoCoins, GiCutDiamond } from "react-icons/gi";
+// import { GiStoneBlock, GiTwoCoins, GiCutDiamond } from "react-icons/gi";
 
 import { AiTwotoneGold } from "react-icons/ai";
+import {
+  Entypo,
+  FontAwesome,
+  FontAwesome5,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 
 const SingleStat = ({ description, data }) => {
-  const thousandsSeparator = Intl.NumberFormat("en-us");
+  // const thousandsSeparator = Intl.NumberFormat("en-us");
+
   let iconComponent;
 
   switch (description) {
     case "Stone":
-      iconComponent = <GiStoneBlock size={20} color={"white"} />;
-      return;
+      iconComponent = <Entypo name="basecamp" size={18} color="white" />;
+      break;
 
     case "Iron":
-      iconComponent = <AiTwotoneGold size={20} color={"white"} />;
-      return;
+      iconComponent = (
+        <MaterialCommunityIcons name="gold" size={24} color="white" />
+      );
+      break;
 
     case "Z Coins":
-      iconComponent = <GiTwoCoins size={20} color={"white"} />;
-      return;
+      iconComponent = <FontAwesome5 name="coins" size={18} color="white" />;
+      break;
 
     case "Diamonds":
-      iconComponent = <GiCutDiamond size={20} color={"white"} />;
-      return;
-
-    default:
-      iconComponent = <GiStoneBlock />;
+      iconComponent = <FontAwesome name="diamond" size={18} color="white" />;
+      break;
   }
 
   return (
     <View style={styles.statSingle}>
-      {/*{iconComponent}*/}
-      <GiStoneBlock size={20} color={"white"} />
-      <Text style={styles.statQuantity}>{thousandsSeparator.format(data)}</Text>
+      {iconComponent}
+      {/*<GiStoneBlock size={20} color={"white"} />*/}
+      <Text style={styles.statQuantity}>{data}</Text>
       <Text style={styles.statDescription}>{description}</Text>
     </View>
   );
@@ -43,8 +49,10 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     flexDirection: "row",
     justifyContent: "flex-start",
+    alignItems: "center",
   },
   statQuantity: {
+    marginLeft: 10,
     marginRight: 5,
     fontSize: 17,
     fontWeight: "bold",

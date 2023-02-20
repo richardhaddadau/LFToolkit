@@ -19,36 +19,37 @@ const HomeScreen = ({ navigation }) => {
   const TestData = [
     {
       id: 1,
-      projectTitle: "Project #1",
+      buildingTitle: "Building #1",
       progress: 85,
       theme: "#f8c820",
     },
     {
       id: 2,
-      projectTitle: "Project #2",
+      buildingTitle: "Building #2",
       progress: 35,
       theme: "#c6005f",
     },
     {
       id: 3,
-      projectTitle: "Project #3",
+      buildingTitle: "Building #3",
       progress: 22,
       theme: "#4792ed",
     },
     {
       id: 4,
-      projectTitle: "Project #4",
+      buildingTitle: "Building #4",
       progress: 22,
       theme: "#4792ed",
     },
     {
       id: 5,
-      projectTitle: "Project #5",
+      buildingTitle: "Building #5",
       progress: 22,
       theme: "#4792ed",
     },
     {
-      projectTitle: "Project #6",
+      id: 6,
+      buildingTitle: "Building #6",
       progress: 22,
       theme: "#4792ed",
     },
@@ -58,14 +59,8 @@ const HomeScreen = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <FlatList
         data={TestData}
-        numColumns={2}
-        columnWrapperStyle={{
-          top: "-15%",
-          paddingHorizontal: "10%",
-          justifyContent: "space-between",
-        }}
         ListHeaderComponent={
-          <SafeAreaView style={styles.header}>
+          <View style={styles.header}>
             <ImageBackground
               source={require("../../assets/Imgs/Header-Background.jpg")}
               resizeMode="cover"
@@ -113,7 +108,7 @@ const HomeScreen = ({ navigation }) => {
                 <AntDesign name="plussquare" size={30} color="white" />
               </View>
             </ImageBackground>
-          </SafeAreaView>
+          </View>
         }
         renderItem={({ item }) => {
           let progressStr = item.progress + "%";
@@ -122,25 +117,29 @@ const HomeScreen = ({ navigation }) => {
             <TouchableWithoutFeedback
               key={item.id}
               onPress={() =>
-                navigation.navigate("Project", {
-                  projectItem: item,
+                navigation.navigate("Building", {
+                  BuildingItem: item,
                 })
               }
             >
               <View style={styles.card}>
-                <View style={styles.cardIcon}></View>
-                <Text style={styles.title}>{item.projectTitle}</Text>
-                <Text style={styles.subtitle}>{item.progress}%</Text>
-                <View style={styles.progressWrapper}>
-                  <View
-                    style={[
-                      styles.progressBar,
-                      {
-                        width: progressStr,
-                        backgroundColor: item.theme,
-                      },
-                    ]}
-                  ></View>
+                <View style={styles.cardTop}>
+                  <View style={styles.cardIcon}></View>
+                  <View style={styles.cardDesc}>
+                    <Text style={styles.title}>{item.buildingTitle}</Text>
+                    <Text style={styles.subtitle}>{item.progress}%</Text>
+                    <View style={styles.progressWrapper}>
+                      <View
+                        style={[
+                          styles.progressBar,
+                          {
+                            width: progressStr,
+                            backgroundColor: item.theme,
+                          },
+                        ]}
+                      ></View>
+                    </View>
+                  </View>
                 </View>
               </View>
             </TouchableWithoutFeedback>
@@ -158,6 +157,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
+    paddingTop: 20,
     aspectRatio: 1,
     overflow: "hidden",
   },
@@ -180,10 +180,12 @@ const styles = StyleSheet.create({
     color: "white",
   },
   card: {
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     marginBottom: 20,
-    width: "45%",
-    alignItems: "center",
+    width: "80%",
+    height: 80,
+    alignSelf: "center",
     borderRadius: 7,
     backgroundColor: "#fff",
     shadowColor: "#000",
@@ -193,9 +195,17 @@ const styles = StyleSheet.create({
     elevation: 7,
     overflow: "hidden",
   },
+  cardTop: {
+    flexDirection: "row",
+    flexWrap: "nowrap",
+  },
+  cardDesc: {
+    flex: 1,
+    marginLeft: 20,
+  },
   cardIcon: {
     marginBottom: 10,
-    width: "50%",
+    height: 60,
     aspectRatio: 1,
     backgroundColor: "#fff",
     borderRadius: 999,
@@ -216,7 +226,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   progressWrapper: {
-    marginTop: 15,
+    marginTop: 10,
     width: "100%",
     height: 7,
     backgroundColor: "#e1e1e1",

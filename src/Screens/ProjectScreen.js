@@ -8,7 +8,7 @@ const ProjectScreen = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={styles.screenWrap}>
-      <View style={styles.projectHeader}>
+      <View style={styles.header}>
         <Pressable onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back-sharp" size={24} color="black" />
         </Pressable>
@@ -23,13 +23,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-  projectHeader: {
+  header: {
     paddingVertical: 20,
     paddingHorizontal: 15,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    backgroundColor: "white",
+    backgroundColor: "#b5c1c5",
   },
   headerTitle: {
     marginLeft: 30,

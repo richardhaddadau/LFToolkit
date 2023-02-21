@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./src/Screens/HomeScreen";
-import ProjectScreen from "./src/Screens/ProjectScreen";
+import BuildingScreen from "./src/Screens/BuildingScreen";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import BottomTabs from "./src/Navigation/BottomTabs";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -35,8 +35,8 @@ export default function App() {
               options={{ headerShown: false }}
             />
             <Stack.Screen
-              name="Project"
-              component={ProjectScreen}
+              name="Building"
+              component={BuildingScreen}
               options={{ headerShown: false }}
             />
             <Stack.Screen

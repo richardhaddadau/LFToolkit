@@ -3,8 +3,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 // import { IoIosArrowBack } from "react-icons/all";
 
-const ProjectScreen = ({ route, navigation }) => {
-  const { projectItem } = route.params;
+const BuildingScreen = ({ route, navigation }) => {
+  const { buildingItem } = route.params;
 
   return (
     <SafeAreaView style={styles.screenWrap}>
@@ -12,7 +12,7 @@ const ProjectScreen = ({ route, navigation }) => {
         <Pressable onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back-sharp" size={24} color="black" />
         </Pressable>
-        <Text style={styles.headerTitle}>{projectItem.projectTitle}</Text>
+        <Text style={styles.headerTitle}>{buildingItem.title}</Text>
       </View>
     </SafeAreaView>
   );
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProjectScreen;
+export default BuildingScreen;

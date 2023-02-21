@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   FlatList,
   ImageBackground,
   SafeAreaView,
@@ -32,11 +33,11 @@ const HomeScreen = ({ navigation }) => {
     stone5: 0,
     stone2: 0,
     iron300: 0,
-    iron100: 329,
-    iron30: 1082,
-    iron6: 1334,
-    iron3: 195,
-    iron2: 54,
+    iron100: 0,
+    iron30: 0,
+    iron6: 0,
+    iron3: 0,
+    iron2: 0,
     zCoins500: 0,
     zCoins100: 0,
     zCoins50: 0,
@@ -50,7 +51,11 @@ const HomeScreen = ({ navigation }) => {
   const [totalZCoins, setTotalZCoins] = useState(0);
   const [totalDiamonds, setTotalDiamonds] = useState(0);
 
+  const [refreshingStats, setRefreshingStats] = useState(false);
+
   const calculateStats = () => {
+    setRefreshingStats(true);
+
     setTotalStone(
       statisticsData.mainStone +
         500 * statisticsData.stone500 +
@@ -81,16 +86,40 @@ const HomeScreen = ({ navigation }) => {
         statisticsData.zCoins1
     );
 
-    setTotalStone(statisticsData.mainDiamonds);
+    setTotalDiamonds(statisticsData.mainDiamonds);
+
+    setRefreshingStats(false);
   };
 
   useEffect(() => {
-    let stats;
-
     readFile().then((r) => {
       const statsObj = JSON.parse(r);
 
-      // statisticsData.mainStone = statsObj.mainStone;
+      statisticsData.mainStone = statsObj.mainStone;
+      statisticsData.stone500 = statsObj.stone500;
+      statisticsData.stone150 = statsObj.stone150;
+      statisticsData.stone50 = statsObj.stone50;
+      statisticsData.stone10 = statsObj.stone10;
+      statisticsData.stone5 = statsObj.stone5;
+      statisticsData.stone2 = statsObj.stone2;
+
+      statisticsData.mainIron = statsObj.mainIron;
+      statisticsData.iron300 = statsObj.iron300;
+      statisticsData.iron100 = statsObj.iron100;
+      statisticsData.iron30 = statsObj.iron30;
+      statisticsData.iron6 = statsObj.iron6;
+      statisticsData.iron3 = statsObj.iron3;
+      statisticsData.iron2 = statsObj.iron2;
+
+      statisticsData.mainZCoins = statsObj.mainZCoins;
+      statisticsData.zCoins500 = statsObj.zCoins500;
+      statisticsData.zCoins100 = statsObj.zCoins100;
+      statisticsData.zCoins50 = statsObj.zCoins50;
+      statisticsData.zCoins15 = statsObj.zCoins15;
+      statisticsData.zCoins5 = statsObj.zCoins5;
+      statisticsData.zCoins1 = statsObj.zCoins1;
+
+      statisticsData.mainDiamonds = statsObj.mainDiamonds;
 
       calculateStats();
     });
@@ -99,37 +128,37 @@ const HomeScreen = ({ navigation }) => {
   const TestData = [
     {
       id: 1,
-      buildingTitle: "Building #1",
+      title: "Building #1",
       progress: 85,
       theme: "#f8c820",
     },
     {
       id: 2,
-      buildingTitle: "Building #2",
+      title: "Building #2",
       progress: 35,
       theme: "#c6005f",
     },
     {
       id: 3,
-      buildingTitle: "Building #3",
+      title: "Building #3",
       progress: 22,
       theme: "#4792ed",
     },
     {
       id: 4,
-      buildingTitle: "Building #4",
+      title: "Building #4",
       progress: 22,
       theme: "#4792ed",
     },
     {
       id: 5,
-      buildingTitle: "Building #5",
+      title: "Building #5",
       progress: 22,
       theme: "#4792ed",
     },
     {
       id: 6,
-      buildingTitle: "Building #6",
+      title: "Building #6",
       progress: 22,
       theme: "#4792ed",
     },
@@ -168,7 +197,17 @@ const HomeScreen = ({ navigation }) => {
                 <TouchableWithoutFeedback
                   onPress={() => navigation.navigate("Statistics")}
                 >
-                  <View style={{ position: "absolute", right: 20, bottom: 15 }}>
+                  <View
+                    style={{
+                      position: "absolute",
+                      flexDirection: "row",
+                      right: 20,
+                      bottom: 15,
+                    }}
+                  >
+                    {refreshingStats ? (
+                      <ActivityIndicator size={"small"} color={"#02C3B1"} />
+                    ) : null}
                     <MaterialCommunityIcons
                       name="pencil-box"
                       size={30}
@@ -188,7 +227,7 @@ const HomeScreen = ({ navigation }) => {
               key={item.id}
               onPress={() =>
                 navigation.navigate("Building", {
-                  BuildingItem: item,
+                  buildingItem: item,
                 })
               }
             >
@@ -196,7 +235,7 @@ const HomeScreen = ({ navigation }) => {
                 <View style={styles.cardTop}>
                   <View style={styles.cardIcon}></View>
                   <View style={styles.cardDesc}>
-                    <Text style={styles.title}>{item.buildingTitle}</Text>
+                    <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.subtitle}>{item.progress}%</Text>
                     <View style={styles.progressWrapper}>
                       <View

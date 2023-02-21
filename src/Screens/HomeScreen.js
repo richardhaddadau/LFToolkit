@@ -9,13 +9,93 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import SingleStat from "../Components/SingleStat";
-import {
-  AntDesign,
-  Ionicons,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import * as FileSystem from "expo-file-system";
+import { useEffect, useState } from "react";
+
+const readFile = async (
+  fileDirectory = FileSystem.cacheDirectory + "saved"
+) => {
+  return await FileSystem.readAsStringAsync(fileDirectory + "statistics");
+};
 
 const HomeScreen = ({ navigation }) => {
+  const [statisticsData, useStatsticsData] = useState({
+    mainStone: 0,
+    mainIron: 41100,
+    mainZCoins: 0,
+    mainDiamonds: 0,
+    stone500: 0,
+    stone150: 0,
+    stone50: 0,
+    stone10: 0,
+    stone5: 0,
+    stone2: 0,
+    iron300: 0,
+    iron100: 329,
+    iron30: 1082,
+    iron6: 1334,
+    iron3: 195,
+    iron2: 54,
+    zCoins500: 0,
+    zCoins100: 0,
+    zCoins50: 0,
+    zCoins15: 0,
+    zCoins5: 0,
+    zCoins1: 0,
+  });
+
+  const [totalStone, setTotalStone] = useState(0);
+  const [totalIron, setTotalIron] = useState(0);
+  const [totalZCoins, setTotalZCoins] = useState(0);
+  const [totalDiamonds, setTotalDiamonds] = useState(0);
+
+  const calculateStats = () => {
+    setTotalStone(
+      statisticsData.mainStone +
+        500 * statisticsData.stone500 +
+        150 * statisticsData.stone150 +
+        50 * statisticsData.stone50 +
+        10 * statisticsData.stone10 +
+        5 * statisticsData.stone5 +
+        2 * statisticsData.stone2
+    );
+
+    setTotalIron(
+      statisticsData.mainIron +
+        300 * statisticsData.iron300 +
+        100 * statisticsData.iron100 +
+        30 * statisticsData.iron30 +
+        6 * statisticsData.iron6 +
+        3 * statisticsData.iron3 +
+        2 * statisticsData.iron2
+    );
+
+    setTotalZCoins(
+      statisticsData.mainZCoins +
+        500 * statisticsData.zCoins500 +
+        100 * statisticsData.zCoins100 +
+        50 * statisticsData.zCoins50 +
+        15 * statisticsData.zCoins15 +
+        5 * statisticsData.zCoins5 +
+        statisticsData.zCoins1
+    );
+
+    setTotalStone(statisticsData.mainDiamonds);
+  };
+
+  useEffect(() => {
+    let stats;
+
+    readFile().then((r) => {
+      const statsObj = JSON.parse(r);
+
+      // statisticsData.mainStone = statsObj.mainStone;
+
+      calculateStats();
+    });
+  }, []);
+
   const TestData = [
     {
       id: 1,
@@ -79,10 +159,10 @@ const HomeScreen = ({ navigation }) => {
                   >
                     Current Statistics:
                   </Text>
-                  <SingleStat data={12000} description={"Stone"} />
-                  <SingleStat data={87400} description={"Iron"} />
-                  <SingleStat data={21000} description={"Z Coins"} />
-                  <SingleStat data={11100} description={"Diamonds"} />
+                  <SingleStat data={totalStone} description={"Stone"} />
+                  <SingleStat data={totalIron} description={"Iron"} />
+                  <SingleStat data={totalZCoins} description={"Z Coins"} />
+                  <SingleStat data={totalDiamonds} description={"Diamonds"} />
                 </View>
 
                 <TouchableWithoutFeedback
@@ -96,16 +176,6 @@ const HomeScreen = ({ navigation }) => {
                     />
                   </View>
                 </TouchableWithoutFeedback>
-              </View>
-
-              <View
-                style={{
-                  marginTop: 10,
-                  paddingRight: 20,
-                  alignItems: "flex-end",
-                }}
-              >
-                <AntDesign name="plussquare" size={30} color="white" />
               </View>
             </ImageBackground>
           </View>
@@ -145,7 +215,29 @@ const HomeScreen = ({ navigation }) => {
             </TouchableWithoutFeedback>
           );
         }}
+        ListEmptyComponent={
+          <View
+            style={{
+              flex: 1,
+              marginTop: 60,
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ color: "#b1b1b1" }}>
+              No building is currently being tracked.
+            </Text>
+            <Text style={{ color: "#b1b1b1" }}>
+              Tap the big{" "}
+              <AntDesign name="pluscircle" size={17} color="#d35322" /> to
+              start.
+            </Text>
+          </View>
+        }
       />
+
+      <View style={styles.addButton}>
+        <AntDesign name="plus" size={30} color="white" />
+      </View>
 
       <StatusBar style="auto" />
     </SafeAreaView>
@@ -157,16 +249,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    paddingTop: 20,
-    aspectRatio: 1,
+    marginBottom: -25,
     overflow: "hidden",
   },
   headerImage: {
-    height: "100%",
-    bottom: 0,
+    paddingBottom: 40,
   },
   headerPanel: {
-    marginTop: "10%",
+    marginTop: 30,
     paddingVertical: 15,
     paddingHorizontal: 20,
     width: "100%",
@@ -182,8 +272,8 @@ const styles = StyleSheet.create({
   card: {
     paddingVertical: 10,
     paddingHorizontal: 15,
-    marginBottom: 20,
-    width: "80%",
+    marginBottom: 15,
+    width: "75%",
     height: 80,
     alignSelf: "center",
     borderRadius: 7,
@@ -201,7 +291,7 @@ const styles = StyleSheet.create({
   },
   cardDesc: {
     flex: 1,
-    marginLeft: 20,
+    marginLeft: 10,
   },
   cardIcon: {
     marginBottom: 10,
@@ -210,10 +300,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 999,
     shadowColor: "#000",
-    // shadowOffset: 5,
     shadowRadius: 4,
     shadowOpacity: 0.25,
-    elevation: 7,
+    elevation: 5,
   },
   title: {
     opacity: 0.5,
@@ -235,6 +324,15 @@ const styles = StyleSheet.create({
   },
   progressBar: {
     height: "100%",
+  },
+  addButton: {
+    position: "absolute",
+    padding: 10,
+    bottom: 20,
+    right: 20,
+    backgroundColor: "#d35322",
+    borderRadius: 999,
+    elevation: 8,
   },
 });
 

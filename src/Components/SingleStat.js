@@ -8,9 +8,10 @@ import {
   FontAwesome5,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
 
 const SingleStat = ({ description, data }) => {
-  // const thousandsSeparator = Intl.NumberFormat("en-us");
+  const [optimisedData, setOptimisedData] = useState("");
 
   let iconComponent;
 
@@ -34,11 +35,16 @@ const SingleStat = ({ description, data }) => {
       break;
   }
 
+  useEffect(() => {
+    const thousands = /\B(?=(\d{3})+(?!\d))/g;
+    setOptimisedData(data.toString().replace(thousands, ","));
+  }, [data]);
+
   return (
     <View style={styles.statSingle}>
       {iconComponent}
       {/*<GiStoneBlock size={20} color={"white"} />*/}
-      <Text style={styles.statQuantity}>{data}</Text>
+      <Text style={styles.statQuantity}>{optimisedData}</Text>
       <Text style={styles.statDescription}>{description}</Text>
     </View>
   );

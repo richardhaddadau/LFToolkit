@@ -39,6 +39,8 @@ const createStatistics = async (
     zCoins15: 0,
     zCoins5: 0,
     zCoins1: 0,
+    diamonds20: 0,
+    diamonds10: 0,
   };
 
   try {

@@ -236,7 +236,9 @@ const HomeScreen = ({ navigation }) => {
                   <View style={styles.cardIcon}></View>
                   <View style={styles.cardDesc}>
                     <Text style={styles.title}>{item.title}</Text>
-                    <Text style={styles.subtitle}>{item.progress}%</Text>
+                    <Text style={styles.subtitle}>
+                      Progress: {item.progress}%
+                    </Text>
                     <View style={styles.progressWrapper}>
                       <View
                         style={[
@@ -366,9 +368,12 @@ const styles = StyleSheet.create({
   },
   addButton: {
     position: "absolute",
-    padding: 10,
+    justifyContent: "center",
+    alignItems: "center",
     bottom: 20,
     right: 20,
+    width: 60,
+    aspectRatio: 1,
     backgroundColor: "#d35322",
     borderRadius: 999,
     elevation: 8,

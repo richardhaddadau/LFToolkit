@@ -4,11 +4,8 @@ import { useState } from "react";
 
 const DiamondsScreen = () => {
   const [mainDiamonds, setMainDiamonds] = useState("0");
-  const [diamonds500, setDiamonds500] = useState("0");
-  const [diamonds150, setDiamonds150] = useState("0");
+  const [diamonds20, setDiamonds20] = useState("0");
   const [diamonds10, setDiamonds10] = useState("0");
-  const [diamonds5, setDiamonds5] = useState("0");
-  const [diamonds2, setDiamonds2] = useState("0");
 
   return (
     <ScrollView style={styles.container}>
@@ -22,6 +19,29 @@ const DiamondsScreen = () => {
         onChangeText={(text) => setMainDiamonds(text.replace(/[^0-9]/g, ""))}
         keyboardType="numeric"
       ></TextInput>
+
+      <TextInput
+        style={styles.statInput}
+        mode={"outlined"}
+        label={"20 Diamonds"}
+        value={diamonds20}
+        placeholder={"eg. 2"}
+        activeOutlineColor={"#47656d"}
+        onChangeText={(text) => setDiamonds20(text.replace(/[^0-9]/g, ""))}
+        keyboardType="numeric"
+      ></TextInput>
+
+      <TextInput
+        style={styles.statInput}
+        mode={"outlined"}
+        label={"10 Diamonds"}
+        value={diamonds10}
+        placeholder={"eg. 5"}
+        activeOutlineColor={"#47656d"}
+        onChangeText={(text) => setDiamonds10(text.replace(/[^0-9]/g, ""))}
+        keyboardType="numeric"
+      ></TextInput>
+      <View style={{ height: 50 }}></View>
     </ScrollView>
   );
 };
@@ -50,6 +70,7 @@ const styles = StyleSheet.create({
   },
   statInput: {
     marginBottom: 2,
+    height: 40,
   },
 });
 

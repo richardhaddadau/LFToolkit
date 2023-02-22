@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
   },
   statInput: {
     marginBottom: 5,
+    height: 40,
   },
 });
 

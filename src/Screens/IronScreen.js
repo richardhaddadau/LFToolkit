@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { useState } from "react";
 
 const IronScreen = () => {
-  const [mainIron, setMainIron] = useState("0");
+  const [iron600, setIron600] = useState("0");
   const [iron300, setIron300] = useState("0");
   const [iron100, setIron100] = useState("0");
   const [iron30, setIron30] = useState("0");
@@ -16,11 +16,11 @@ const IronScreen = () => {
       <TextInput
         style={styles.statInput}
         mode={"outlined"}
-        label={"Main Iron"}
-        value={mainIron}
-        placeholder={"eg. 12500"}
+        label={"600 Iron Chest"}
+        value={iron600}
+        placeholder={"eg. 1"}
         activeOutlineColor={"#47656d"}
-        onChangeText={(text) => setMainIron(text.replace(/[^0-9]/g, ""))}
+        onChangeText={(text) => setIron600(text.replace(/[^0-9]/g, ""))}
         keyboardType="numeric"
       ></TextInput>
       <TextInput

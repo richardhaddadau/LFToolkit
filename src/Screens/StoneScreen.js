@@ -3,7 +3,8 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { useState } from "react";
 
 const StoneScreen = () => {
-  const [mainStone, setMainStone] = useState("0");
+  const [stone5000, setStone5000] = useState("0");
+  const [stone1000, setStone1000] = useState("0");
   const [stone500, setStone500] = useState("0");
   const [stone150, setStone150] = useState("0");
   const [stone50, setStone50] = useState("0");
@@ -16,11 +17,21 @@ const StoneScreen = () => {
       <TextInput
         style={styles.statInput}
         mode={"outlined"}
-        label={"Main Stone"}
-        value={mainStone}
-        placeholder={"eg. 12500"}
+        label={"5000 Stone Chest"}
+        value={stone5000}
+        placeholder={"eg. 1"}
         activeOutlineColor={"#47656d"}
-        onChangeText={(text) => setMainStone(text.replace(/[^0-9]/g, ""))}
+        onChangeText={(text) => setStone5000(text.replace(/[^0-9]/g, ""))}
+        keyboardType="numeric"
+      ></TextInput>
+      <TextInput
+        style={styles.statInput}
+        mode={"outlined"}
+        label={"1000 Stone Chest"}
+        value={stone1000}
+        placeholder={"eg. 2"}
+        activeOutlineColor={"#47656d"}
+        onChangeText={(text) => setStone1000(text.replace(/[^0-9]/g, ""))}
         keyboardType="numeric"
       ></TextInput>
       <TextInput

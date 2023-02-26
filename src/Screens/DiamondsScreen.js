@@ -4,6 +4,7 @@ import { useState } from "react";
 
 const DiamondsScreen = () => {
   const [mainDiamonds, setMainDiamonds] = useState("0");
+  const [diamonds50, setDiamonds50] = useState("0");
   const [diamonds20, setDiamonds20] = useState("0");
   const [diamonds10, setDiamonds10] = useState("0");
 
@@ -17,6 +18,17 @@ const DiamondsScreen = () => {
         placeholder={"eg. 14200"}
         activeOutlineColor={"#47656d"}
         onChangeText={(text) => setMainDiamonds(text.replace(/[^0-9]/g, ""))}
+        keyboardType="numeric"
+      ></TextInput>
+
+      <TextInput
+        style={styles.statInput}
+        mode={"outlined"}
+        label={"50 Diamonds"}
+        value={diamonds20}
+        placeholder={"eg. 3"}
+        activeOutlineColor={"#47656d"}
+        onChangeText={(text) => setDiamonds50(text.replace(/[^0-9]/g, ""))}
         keyboardType="numeric"
       ></TextInput>
 

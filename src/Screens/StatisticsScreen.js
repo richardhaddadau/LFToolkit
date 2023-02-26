@@ -75,6 +75,8 @@ const StatisticsScreen = ({ navigation }) => {
     mainIron: 0,
     mainZCoins: 0,
     mainDiamonds: 0,
+    stone5000: 0,
+    stone1000: 0,
     stone500: 0,
     stone150: 0,
     stone50: 0,
@@ -102,6 +104,8 @@ const StatisticsScreen = ({ navigation }) => {
       const statsObj = JSON.parse(r);
 
       statisticsData.mainStone = statsObj.mainStone;
+      statisticsData.stone5000 = statsObj.stone5000;
+      statisticsData.stone1000 = statsObj.stone1000;
       statisticsData.stone500 = statsObj.stone500;
       statisticsData.stone150 = statsObj.stone150;
       statisticsData.stone50 = statsObj.stone50;
@@ -110,6 +114,7 @@ const StatisticsScreen = ({ navigation }) => {
       statisticsData.stone2 = statsObj.stone2;
 
       statisticsData.mainIron = statsObj.mainIron;
+      statisticsData.iron600 = statsObj.iron600;
       statisticsData.iron300 = statsObj.iron300;
       statisticsData.iron100 = statsObj.iron100;
       statisticsData.iron30 = statsObj.iron30;
@@ -146,12 +151,15 @@ const StatisticsScreen = ({ navigation }) => {
           mainIron: statisticsData.mainIron,
           mainZCoins: statisticsData.mainZCoins,
           mainDiamonds: statisticsData.mainDiamonds,
+          stone5000: statisticsData.stone5000,
+          stone1000: statisticsData.stone1000,
           stone500: statisticsData.stone500,
           stone150: statisticsData.stone150,
           stone50: statisticsData.stone50,
           stone10: statisticsData.stone10,
           stone5: statisticsData.stone5,
           stone2: statisticsData.stone2,
+          iron600: statisticsData.iron600,
           iron300: statisticsData.iron300,
           iron100: statisticsData.iron100,
           iron30: statisticsData.iron30,
@@ -173,15 +181,31 @@ const StatisticsScreen = ({ navigation }) => {
             tabBarIndicatorStyle: {
               backgroundColor: "#02C3B1",
             },
+            tabBarItemStyle: {
+              paddingHorizontal: 0,
+            },
             tabBarIconStyle: {
               alignItems: "center",
               justifyContent: "center",
             },
             tabBarLabelStyle: {
               marginTop: 5,
+              fontSize: 11,
+              fontStyle: "italic",
+              fontWeight: "bold",
+              textTransform: "none",
             },
           }}
         >
+          <Tabs.Screen
+            name={"Mains"}
+            component={StoneScreen}
+            options={{
+              tabBarIcon: (focused) => (
+                <Entypo name="basecamp" size={15} color="black" />
+              ),
+            }}
+          />
           <Tabs.Screen
             name={"Stone"}
             component={StoneScreen}

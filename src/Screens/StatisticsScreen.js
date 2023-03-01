@@ -21,6 +21,7 @@ import ZCoinsScreen from "./ZCoinsScreen";
 import IronScreen from "./IronScreen";
 import DiamondsScreen from "./DiamondsScreen";
 import * as FileSystem from "expo-file-system";
+import WarehouseScreen from "./WarehouseScreen";
 
 const readFile = async (
   fileDirectory = FileSystem.cacheDirectory + "saved"
@@ -183,6 +184,7 @@ const StatisticsScreen = ({ navigation }) => {
             },
             tabBarItemStyle: {
               paddingHorizontal: 0,
+              justifyContent: "flex-start",
             },
             tabBarIconStyle: {
               alignItems: "center",
@@ -198,7 +200,16 @@ const StatisticsScreen = ({ navigation }) => {
           }}
         >
           <Tabs.Screen
-            name={"Mains"}
+            name={"Warehouse"}
+            component={WarehouseScreen}
+            options={{
+              tabBarIcon: (focused) => (
+                <FontAwesome5 name="warehouse" size={13} color="black" />
+              ),
+            }}
+          />
+          <Tabs.Screen
+            name={"Stone Chests"}
             component={StoneScreen}
             options={{
               tabBarIcon: (focused) => (
@@ -207,16 +218,7 @@ const StatisticsScreen = ({ navigation }) => {
             }}
           />
           <Tabs.Screen
-            name={"Stone"}
-            component={StoneScreen}
-            options={{
-              tabBarIcon: (focused) => (
-                <Entypo name="basecamp" size={15} color="black" />
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name={"Iron"}
+            name={"Iron Chests"}
             component={IronScreen}
             options={{
               tabBarIcon: (focused) => (
@@ -225,7 +227,7 @@ const StatisticsScreen = ({ navigation }) => {
             }}
           />
           <Tabs.Screen
-            name={"Z Coins"}
+            name={"Z Coins Chests"}
             component={ZCoinsScreen}
             options={{
               tabBarIcon: (focused) => (
@@ -234,7 +236,7 @@ const StatisticsScreen = ({ navigation }) => {
             }}
           />
           <Tabs.Screen
-            name={"Diamonds"}
+            name={"Diamonds Chest"}
             component={DiamondsScreen}
             options={{
               tabBarIcon: (focused) => (

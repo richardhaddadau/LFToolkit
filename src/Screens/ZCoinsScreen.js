@@ -3,7 +3,6 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { useState } from "react";
 
 const ZCoinsScreen = () => {
-  const [mainZCoins, setMainZCoins] = useState("0");
   const [zCoins500, setZCoins500] = useState("0");
   const [zCoins100, setZCoins100] = useState("0");
   const [zCoins50, setZCoins50] = useState("0");
@@ -13,16 +12,6 @@ const ZCoinsScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <TextInput
-        style={styles.statInput}
-        mode={"outlined"}
-        label={"Main ZCoins"}
-        value={mainZCoins}
-        placeholder={"eg. 12500"}
-        activeOutlineColor={"#47656d"}
-        onChangeText={(text) => setMainZCoins(text.replace(/[^0-9]/g, ""))}
-        keyboardType="numeric"
-      ></TextInput>
       <TextInput
         style={styles.statInput}
         mode={"outlined"}
@@ -110,7 +99,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   statInput: {
-    marginBottom: 5,
+    marginBottom: 10,
     height: 40,
   },
 });

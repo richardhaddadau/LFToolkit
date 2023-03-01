@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   statInput: {
-    marginBottom: 5,
+    marginBottom: 10,
     height: 40,
   },
 });

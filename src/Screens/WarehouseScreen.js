@@ -2,43 +2,57 @@ import { Button, TextInput } from "react-native-paper";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { useState } from "react";
 
-const DiamondsScreen = () => {
-  const [diamonds50, setDiamonds50] = useState("0");
-  const [diamonds20, setDiamonds20] = useState("0");
-  const [diamonds10, setDiamonds10] = useState("0");
+const WarehouseScreen = () => {
+  const [mainStone, setMainStone] = useState("0");
+  const [mainIron, setMainIron] = useState("0");
+  const [mainZCoins, setMainZCoins] = useState("0");
+  const [mainDiamonds, setMainDiamonds] = useState("0");
 
   return (
     <ScrollView style={styles.container}>
+      <View>
+        <TextInput
+          style={styles.statInput}
+          mode={"outlined"}
+          label={"Stone in Warehouse"}
+          value={mainStone}
+          placeholder={"eg. 1"}
+          activeOutlineColor={"#47656d"}
+          onChangeText={(text) => setMainStone(text.replace(/[^0-9]/g, ""))}
+          keyboardType="numeric"
+        ></TextInput>
+      </View>
+
       <TextInput
         style={styles.statInput}
         mode={"outlined"}
-        label={"50 Diamonds"}
-        value={diamonds20}
-        placeholder={"eg. 3"}
+        label={"Iron in Warehouse"}
+        value={mainIron}
+        placeholder={"eg. 1"}
         activeOutlineColor={"#47656d"}
-        onChangeText={(text) => setDiamonds50(text.replace(/[^0-9]/g, ""))}
+        onChangeText={(text) => setMainIron(text.replace(/[^0-9]/g, ""))}
         keyboardType="numeric"
       ></TextInput>
 
       <TextInput
         style={styles.statInput}
         mode={"outlined"}
-        label={"20 Diamonds"}
-        value={diamonds20}
-        placeholder={"eg. 2"}
+        label={"Z Coins in Warehouse"}
+        value={mainZCoins}
+        placeholder={"eg. 1"}
         activeOutlineColor={"#47656d"}
-        onChangeText={(text) => setDiamonds20(text.replace(/[^0-9]/g, ""))}
+        onChangeText={(text) => setMainZCoins(text.replace(/[^0-9]/g, ""))}
         keyboardType="numeric"
       ></TextInput>
 
       <TextInput
         style={styles.statInput}
         mode={"outlined"}
-        label={"10 Diamonds"}
-        value={diamonds10}
-        placeholder={"eg. 5"}
+        label={"Diamonds in Warehouse"}
+        value={mainDiamonds}
+        placeholder={"eg. 1"}
         activeOutlineColor={"#47656d"}
-        onChangeText={(text) => setDiamonds10(text.replace(/[^0-9]/g, ""))}
+        onChangeText={(text) => setMainDiamonds(text.replace(/[^0-9]/g, ""))}
         keyboardType="numeric"
       ></TextInput>
       <View style={{ height: 50 }}></View>
@@ -74,4 +88,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DiamondsScreen;
+export default WarehouseScreen;

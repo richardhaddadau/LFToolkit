@@ -1,6 +1,6 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Text, View, StyleSheet } from "react-native";
-import { TextInput } from "react-native-paper";
+import { Switch, TextInput } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 
@@ -14,27 +14,42 @@ const ConstructionCalcScreen = () => {
   const [calculatedHours, setCalculatedHours] = useState(0);
   const [calculatedMinutes, setCalculatedMinutes] = useState(0);
 
-  useEffect(() => {
-    if ((days === 0 && hours === 0 && minutes === 0) || workers === 0) {
-      console.log("oops");
+  const [useMoon, setUseMoon] = useState(false);
+
+  const isNotEmpty = (value) => {
+    if (value !== null && value !== 0 && value !== undefined && value !== "") {
+      return true;
+    } else {
       return false;
     }
+  };
 
-    console.log(days);
-
+  useEffect(() => {
     const minutesInADay = 24 * 60;
     const minutesInAnHour = 60;
-    const totalTimeInMinutes =
-      parseInt(minutes) + hours * minutesInAnHour + days * minutesInADay;
-    const fixedTotalTime = totalTimeInMinutes / workers;
 
-    console.log(typeof minutes);
+    if (
+      isNotEmpty(days) &&
+      isNotEmpty(hours) &&
+      isNotEmpty(minutes) &&
+      isNotEmpty(workers)
+    ) {
+      const totalTimeInMinutes =
+        parseInt(minutes) + hours * minutesInAnHour + days * minutesInADay;
 
-    setCalculatedDays(Math.floor(fixedTotalTime / minutesInADay));
-    setCalculatedHours(
-      Math.floor((fixedTotalTime % minutesInADay) / minutesInAnHour)
-    );
-    setCalculatedMinutes(Math.ceil(fixedTotalTime % 60));
+      const fixedTotalTime = totalTimeInMinutes / workers;
+
+      console.log(totalTimeInMinutes, fixedTotalTime);
+
+      setCalculatedDays(Math.floor(fixedTotalTime / minutesInADay));
+      setCalculatedHours(
+        Math.floor((fixedTotalTime % minutesInADay) / minutesInAnHour)
+      );
+
+      setCalculatedMinutes(Math.ceil(fixedTotalTime % 60));
+
+      console.log(calculatedDays, calculatedHours, calculatedMinutes);
+    }
   }, [days, hours, minutes, workers]);
 
   return (
@@ -47,8 +62,9 @@ const ConstructionCalcScreen = () => {
             mode={"outlined"}
             label={"Days"}
             value={days}
-            placeholder={"eg. 1"}
-            activeOutlineColor={"#47656d"}
+            placeholder={"eg. 17"}
+            outlineColor={"#c6005f"}
+            activeOutlineColor={"#c6005f"}
             onChangeText={(text) => setDays(text.replace(/[^0-9]/g, ""))}
             keyboardType="numeric"
           ></TextInput>
@@ -58,8 +74,9 @@ const ConstructionCalcScreen = () => {
             mode={"outlined"}
             label={"Hours"}
             value={hours}
-            placeholder={"eg. 1"}
-            activeOutlineColor={"#47656d"}
+            placeholder={"eg. 46"}
+            outlineColor={"#c6005f"}
+            activeOutlineColor={"#c6005f"}
             onChangeText={(text) => setHours(text.replace(/[^0-9]/g, ""))}
             keyboardType="numeric"
           ></TextInput>
@@ -69,8 +86,9 @@ const ConstructionCalcScreen = () => {
             mode={"outlined"}
             label={"Minutes"}
             value={minutes}
-            placeholder={"eg. 1"}
-            activeOutlineColor={"#47656d"}
+            placeholder={"eg. 23"}
+            outlineColor={"#c6005f"}
+            activeOutlineColor={"#c6005f"}
             onChangeText={(text) => setMinutes(text.replace(/[^0-9]/g, ""))}
             keyboardType="numeric"
           ></TextInput>
@@ -83,15 +101,39 @@ const ConstructionCalcScreen = () => {
             mode={"outlined"}
             label={"Workers"}
             value={workers}
-            placeholder={"eg. 1"}
-            activeOutlineColor={"#47656d"}
+            placeholder={"eg. 2"}
+            outlineColor={"#f8c820"}
+            activeOutlineColor={"#f8c820"}
+            onChangeText={(text) => setWorkers(text.replace(/[^1-6]/g, ""))}
+            keyboardType="numeric"
+          ></TextInput>
+        </View>
+
+        <Text>Use Speed-Up Time (Moon)?</Text>
+        <Switch value={useMoon} onValueChange={() => setUseMoon(!useMoon)} />
+        <View style={styles.constructionTime}>
+          <TextInput
+            style={styles.constructionInput}
+            mode={"outlined"}
+            label={"Workers"}
+            value={workers}
+            placeholder={"eg. 2"}
+            outlineColor={"#f8c820"}
+            activeOutlineColor={"#f8c820"}
             onChangeText={(text) => setWorkers(text.replace(/[^1-6]/g, ""))}
             keyboardType="numeric"
           ></TextInput>
         </View>
         <Text>
-          {calculatedDays} Days, {calculatedHours} Hours, {calculatedMinutes}{" "}
-          Minutes Left
+          There are{" "}
+          <Text style={styles.calculatedResult}>
+            {isNotEmpty(calculatedDays) ? `${calculatedDays} Days, ` : null}
+            {isNotEmpty(calculatedHours) ? `${calculatedHours} Hours, ` : null}
+            {isNotEmpty(calculatedMinutes)
+              ? `${calculatedMinutes} Minutes`
+              : null}{" "}
+          </Text>
+          left
         </Text>
       </View>
 
@@ -119,14 +161,20 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   constructionWrap: {
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 20,
   },
   constructionTime: {
+    marginTop: 5,
+    marginBottom: 20,
     flexDirection: "row",
     justifyContent: "space-evenly",
   },
   constructionInput: {
     width: "25%",
+  },
+  calculatedResult: {
+    fontWeight: "bold",
   },
 });
 

@@ -111,7 +111,9 @@ const ConstructionCalcScreen = () => {
         <View style={styles.singleInput}>
           <TouchableOpacity
             style={{ marginHorizontal: 10, marginTop: 5 }}
-            onPress={() => setWorkers(parseInt(workers) - 1)}
+            onPress={() =>
+              workers > 1 ? setWorkers(parseInt(workers) - 1) : null
+            }
           >
             <AntDesign name="minussquareo" size={30} color="#f8c820" />
           </TouchableOpacity>
@@ -120,7 +122,9 @@ const ConstructionCalcScreen = () => {
 
           <TouchableOpacity
             style={{ marginHorizontal: 10, marginTop: 5 }}
-            onPress={() => setWorkers(parseInt(workers) + 1)}
+            onPress={() =>
+              workers < 6 ? setWorkers(parseInt(workers) + 1) : null
+            }
           >
             <AntDesign name="plussquareo" size={30} color="#f8c820" />
           </TouchableOpacity>
@@ -142,7 +146,7 @@ const ConstructionCalcScreen = () => {
             </Text>
             <View style={styles.singleInput}>
               <TextInput
-                style={styles.constructionInput}
+                style={styles.moonInput}
                 mode={"outlined"}
                 label={"Speed-Up"}
                 value={moonMinutes}
@@ -199,7 +203,7 @@ const styles = StyleSheet.create({
   },
   constructionTime: {
     marginTop: 5,
-    marginBottom: 20,
+    marginBottom: 30,
     flexDirection: "row",
     justifyContent: "space-between",
   },
@@ -217,6 +221,10 @@ const styles = StyleSheet.create({
     width: "32%",
     backgroundColor: "#1a1a16",
   },
+  moonInput: {
+    width: "50%",
+    backgroundColor: "#1a1a16",
+  },
   workersText: {
     marginHorizontal: 10,
     fontSize: 30,
@@ -231,6 +239,7 @@ const styles = StyleSheet.create({
     borderRadius: 0,
   },
   moonToggle: {
+    marginVertical: 30,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
